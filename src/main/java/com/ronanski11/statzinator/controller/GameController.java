@@ -3,7 +3,6 @@ package com.ronanski11.statzinator.controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ronanski11.statzinator.model.Game;
 import com.ronanski11.statzinator.model.GameStatus;
+import com.ronanski11.statzinator.security.Roles;
 import com.ronanski11.statzinator.service.GameService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.validation.Valid;
+import jakarta.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/game")
@@ -36,6 +36,7 @@ public class GameController {
 		return ResponseEntity.ok(gameService.getAllGames(status));
 	}
 	
+	@RolesAllowed(Roles.Admin)
 	@PostMapping()
 	public ResponseEntity<Game> saveNewGame(@RequestBody Game game) {
 		return ResponseEntity.ok(gameService.saveNewGame(game));
