@@ -2,6 +2,7 @@ package com.ronanski11.statzinator.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -19,18 +20,18 @@ public class Player {
     
     private int age;    
    
-    private double height;    
+    private double height;
     
     private double weight;    
 
-    private LocalDate dateOfBirth;    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
+
 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     @JsonIgnore
     private Team team;
-    
-    
     
 }
