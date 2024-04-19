@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.ronanski11.statzinator.dto.PlayerDto;
 import com.ronanski11.statzinator.model.MessageResponse;
 import com.ronanski11.statzinator.model.Player;
 import com.ronanski11.statzinator.repository.PlayerRepository;
@@ -14,6 +15,12 @@ import com.ronanski11.statzinator.repository.TeamRepository;
 
 @Service
 public class PlayerService {
+	
+    @Autowired
+    public PlayerService(PlayerRepository playerRepository, TeamRepository teamRepository) {
+        this.playerRepository = playerRepository;
+        this.teamRepository = teamRepository;
+    }
 
 	@Autowired
 	PlayerRepository playerRepository;
@@ -29,9 +36,15 @@ public class PlayerService {
 		return playerRepository.findById(id).get();
 	}
 
-	public Player saveNewPlayer(Player player, int teamId) {
-		player.setTeam(teamRepository.findById(teamId).get());
-	    return playerRepository.save(player);
+	public Player saveNewPlayer(PlayerDto playerDto) {
+		Player player = new Player();
+		player.setAge(playerDto.getAge());
+		player.setDateOfBirth(playerDto.getDateOfBirth());
+		player.setWeight(playerDto.getWeight());
+		player.setHeight(playerDto.getHeight());
+		player.setFullName(playerDto.getFullName());
+		player.setTeam(teamRepository.findById(playerDto.getTeamId()).get());
+		return playerRepository.save(player);
 	}
 
 

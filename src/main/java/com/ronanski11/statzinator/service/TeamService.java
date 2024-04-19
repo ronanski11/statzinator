@@ -35,8 +35,6 @@ public class TeamService {
 	public Team saveNewTeam(TeamDto teamDto) {
 		Team team = new Team();
 		List<Integer> playerIds = teamDto.getPlayerIds();
-		team.setPlayers(playerIds.stream().map(playerRepository::findById).filter(java.util.Optional::isPresent)
-				.map(java.util.Optional::get).collect(Collectors.toList()));
 		team.setCoach(teamDto.getCoach());
 		team.setName(teamDto.getName());
 		Team savedTeam = teamRepository.save(team);

@@ -29,6 +29,10 @@ public class GameService {
 	@Autowired
 	StatsService statsService;
 
+	public GameService(GameRepository gameRepository) {
+		this.gameRepository = gameRepository;
+	}
+
 	public Game getById(Integer id) {
 		return gameRepository.findById(id).get();
 	}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ronanski11.statzinator.dto.PlayerDto;
 import com.ronanski11.statzinator.model.MessageResponse;
 import com.ronanski11.statzinator.model.Player;
 import com.ronanski11.statzinator.security.Roles;
@@ -40,8 +41,8 @@ public class PlayerController {
 
 	@PostMapping()
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Player> saveNewPlayer(@RequestBody Player player, @RequestParam int teamId) {
-		return ResponseEntity.ok(playerService.saveNewPlayer(player, teamId));
+	public ResponseEntity<Player> saveNewPlayer(@RequestBody PlayerDto playerDto) {
+		return ResponseEntity.ok(playerService.saveNewPlayer(playerDto));
 	}
 
 	@GetMapping("/{id}")

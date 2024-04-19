@@ -24,15 +24,4 @@ public class Team {
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private List<Player> players;
     
-    public void addPlayer(Player player) {
-        players.add(player);
-        player.setTeam(this);
-    }
-
-    public void removePlayer(Player player) {
-        players.remove(player);
-        player.setTeam(null);
-    }
-    
-    
 }
